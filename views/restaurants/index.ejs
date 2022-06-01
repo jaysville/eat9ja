@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eat9ja</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="/stylesheets/theme.css">
+
+</head>
+
+<body class="bg-dark">
+  <%- include('../partials/navbar') %>
+  <%- include('../partials/flash') %>
+  <div id="map" style="width: 100%; height: 500px"></div>
+  <main class="container mt-5">
+
+
+
+    <h1 class="text-light">All Restaurants</h1>
+    <% for(let restaurant of restaurants){ %>
+    <div class="card mb-3 bg-dark text-light giveborder  border border-light">
+      <div class="row">
+        <div class="col-md-4">
+          <%  if(restaurant.images.length){ %>
+          <img src="<%= restaurant.images[0].samesize %> " alt="" class="img-fluid myImage">
+          <% }else{ %>
+          <img src="https://media.istockphoto.com/photos/cozy-restaurant-for-gathering-with-friends-picture-id1159992039?k=20&m=1159992039&s=612x612&w=0&h=t2lqevaWYLXvcjDeKzbHvIRF6GE3gxiqO6AIezr3Mws=" class="img-fluid myImage" alt="">
+          <%} %>
+        </div>
+        <div class="col-md-8 d-flex align-items-center">
+          <div class="card-body">
+            <h5 class="card-title text-info">
+              <%= restaurant.title %>
+            </h5>
+            <p class="card-text text-light">
+              <%= restaurant.description %>
+            </p>
+            <p class="card-text text-muted">
+              <small>
+                <%= restaurant.location %>
+              </small>
+            </p>
+            <a href="/restaurants/<%= restaurant._id %>" class="btn btn-primary"> View <%= restaurant.title %> </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </main>
+  <%- include('../partials/footer') %>
+  <script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN%>'
+    const restaurants = {
+      features: <%- JSON.stringify(restaurants) %>
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  <script src="/scripts/clusterMap.js"></script>
+</body>
+
+</html>

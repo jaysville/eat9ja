@@ -1,0 +1,12 @@
+.giveborder {
+    border: 1px solid transparent;
+    border-radius: 19px;
+    background: #242323;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.myImage {
+    width: 100%;
+    object-fit: cover;
+}
